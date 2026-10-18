@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d0416">
+<title>Happy Birthday Queen ✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ YAHAN SIRF YE EDIT KARO ============ -->
+<script>
+window.CONFIG = {
+  name: "Shivani Jii",
+  tagline: "Meri Pyari Mahila Mittar ♡",
+  password: "madam jii",
+  date: "2026-10-28T00:00:00",        // birthday date & time (countdown yahin tak chalega)
+  music: "music/birthday.mp3",
+  whatsapp: "919508855944",            // country code ke saath, bina + ke
+  instagram: "sinha_ayush_110",        // review yahin Instagram DM me jayega
+  calendarPhoto: "images/photo2.jpeg",
+  cube: ["images/photo10.jpeg","images/photo15.jpeg","images/photo7.jpeg","images/photo13.jpeg","images/photo5.jpeg","images/photo16.jpeg"],
+  photos: [
+    { src: "images/photo1.jpeg", cap: "Memory 1" },
+    { src: "images/photo2.jpeg", cap: "Memory 2" },
+    { src: "images/photo3.jpeg", cap: "Memory 3" },
+    { src: "images/photo4.jpeg", cap: "Memory 4" },
+    { src: "images/photo5.jpeg", cap: "Memory 5" },
+    { src: "images/photo6.jpeg", cap: "Memory 6" },
+    { src: "images/photo7.jpeg", cap: "Memory 7" },
+    { src: "images/photo8.jpeg", cap: "Memory 8" }
+  ],
+  letter: [
+    "Happy Birthday, Shivani Jii! 💗",
+    "Aapki muskaan hamesha yunhi chamakti rahe, aur har din kuch naya aur khoobsurat laye.",
+    "Ye chhoti si duniya sirf aapke liye ban gayi hai: yaadon, music aur surprises ke saath.",
+    "Aap sab acchi cheezon ki haqdaar hain. Bahut saara pyaar aur shubhkamnayein! 🎂✨"
+  ],
+  wishes: [
+    "Aapka din chhoti chhoti khushiyon se bhara ho. 💗",
+    "Dher saari hansi, adventures aur celebrations aapke naam. 🎉",
+    "Har sapna is saal sach hone ki taraf badhe. 🌟",
+    "Jitni khushi aap doosron ko deti hain, usse zyada aapko mile. 🌷",
+    "Candles bujh jaayein, par khushi hamesha roshan rahe. ✨"
+  ]
+};
+</script>
+<!-- ================================================== -->
+
+<audio id="aud" loop preload="none"></audio>
+
+<!-- ============ PASSWORD GATE + COUNTDOWN ============ -->
+<section id="gate" class="center">
+  <div class="glass tilt gate-card">
+    <div class="gem">♡</div>
+    <p class="kicker">A private surprise</p>
+    <h1 class="title3d">A surprise awaits</h1>
+
+    <div id="gcd" class="cd mini" aria-live="off">
+      <div><b id="gd">00</b><i>days</i></div><div><b id="gh">00</b><i>hours</i></div>
+      <div><b id="gm">00</b><i>minutes</i></div><div><b id="gs">00</b><i>seconds</i></div>
+    </div>
+    <div id="gdone" class="done" hidden>
+      <span class="hb">Happy Birthday</span>
+      <span class="bq">Birthday Queen</span>
+    </div>
+
+    <p class="sub">Secret password daalo aur ye chhoti si duniya kholo.</p>
+    <form id="gf" autocomplete="off">
+      <label class="sr" for="pw">Password</label>
+      <input id="pw" type="password" placeholder="Secret password" required>
+      <button class="btn" type="submit">Unlock surprise</button>
+      <p id="err" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ INTRO TEXT ============ -->
+<div id="intro" class="intro" hidden>
+  <h1 id="introText" aria-label="Welcome to your Surprise Journey"></h1>
+  <p>Ek chhoti si duniya, sirf aapke liye ✨</p>
+</div>
+
+<!-- ============ DOLL CAKE POPUP ============ -->
+<div id="cakeModal" class="cakemodal" role="dialog" aria-modal="true" aria-label="Cake cutting" hidden>
+  <div class="cm-card">
+    <p class="kicker">Your birthday ritual</p>
+    <h2 id="cmTitle" class="title3d sm">Cut the cake, Queen!</h2>
+    <div class="cm-stage"><canvas id="cakeCanvas" aria-label="3D doll cake"></canvas></div>
+    <p id="cmMsg" class="script">Ek pyaari si wish maango, phir cake kaato 🎂</p>
+    <div class="cm-actions">
+      <button id="cutBtn" class="btn" type="button">Cut the cake 🔪</button>
+      <button id="enterBtn" class="btn alt" type="button" hidden>Enter your world ✨</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app" hidden>
+  <nav class="glass" aria-label="Sections">
+    <a href="#top">Home</a><a href="#gallery">Photos</a><a href="#calendar">Calendar</a><a href="#letter">Letter</a><a href="#cake">Cake</a><a href="#wish">Wishes</a>
+  </nav>
+  <button id="mus" class="pill fab" type="button">♫ Play music</button>
+
+  <header id="top" class="center">
+    <p class="kicker">A little world of magic</p>
+    <h1 class="hero"><span class="hb3d">Happy Birthday</span><span id="hn" class="name"></span></h1>
+    <p id="tag" class="script"></p>
+    <div class="scene" aria-label="Rotating photo cube"><div class="cube"><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div></div></div>
+
+    <div id="cd" class="glass cd" aria-live="off">
+      <div><b id="d">00</b><i>days</i></div><div><b id="h">00</b><i>hours</i></div>
+      <div><b id="m">00</b><i>minutes</i></div><div><b id="s">00</b><i>seconds</i></div>
+    </div>
+    <div id="hdone" class="done big" hidden>
+      <span class="hb">Happy Birthday</span>
+      <span class="bq">Birthday Queen</span>
+    </div>
+    <p id="cdmsg" class="script"></p>
+    <button id="party" class="btn" type="button">Celebrate 🎉</button>
+  </header>
+
+  <section id="gallery">
+    <h2>Memory gallery</h2>
+    <div id="flow" class="flow"></div>
+    <div class="fl-nav"><button id="fprev" class="pill" type="button">‹ Prev</button><button id="fnext" class="pill" type="button">Next ›</button></div>
+    <div id="grid" class="strip"></div>
+  </section>
+
+  <section id="calendar" class="center">
+    <h2>Your special day</h2>
+    <div class="glass tilt calwrap">
+      <div class="calcard"><h3 id="calTitle"></h3><div id="calgrid"></div><p id="calCap" class="script"></p></div>
+      <figure class="calpic"><img id="calImg" alt="Birthday photo"><figcaption>Is din ki khaas yaad</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="letter" class="center">
+    <h2>A secret letter</h2>
+    <div class="glass tilt note">
+      <p id="lt">Letter kholne ke liye button dabao.</p>
+      <button id="lb" class="btn" type="button">Open letter 💌</button>
+    </div>
+  </section>
+
+  <section id="cake" class="center">
+    <h2>Make a wish</h2>
+    <div class="cakebox tilt" aria-hidden="true">
+      <div class="candles"></div>
+      <div class="tier t1"></div><div class="tier t2"></div><div class="tier t3"></div><div class="plate"></div>
+    </div>
+    <p id="cm" class="script">Candles par tap karo ya button dabao.</p>
+    <button id="blow" class="btn" type="button">Blow the candles</button>
+  </section>
+
+  <section id="wish" class="center">
+    <h2>Wish jar</h2>
+    <div class="glass tilt note"><p id="wm">Ek wish nikaalo…</p>
+      <button id="wb" class="btn" type="button">Pick a wish 💌</button></div>
+  </section>
+
+  <footer>
+    <p>Designed &amp; developed by Mr. A ✨ · © 2026 Mr. A. All rights reserved.</p>
+    <button id="fbo" class="pill" type="button">💌 Leave a review</button>
+  </footer>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lb-view" class="lightbox" hidden>
+  <button class="x" type="button" aria-label="Close">✕</button>
+  <button class="nav p" type="button" aria-label="Previous">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="nav n" type="button" aria-label="Next">›</button>
+</div>
+
+<!-- ============ REVIEW (Instagram + WhatsApp) ============ -->
+<dialog id="fb" class="glass">
+  <form id="wf">
+    <h3>Leave a review</h3>
+    <label for="fn">Name (optional)</label>
+    <input id="fn" name="name" type="text">
+    <label>Rating</label>
+    <div class="stars" id="stars" role="group" aria-label="Rating">
+      <button type="button" aria-label="1 star">★</button><button type="button" aria-label="2 stars">★</button><button type="button" aria-label="3 stars">★</button><button type="button" aria-label="4 stars">★</button><button type="button" aria-label="5 stars">★</button>
+    </div>
+    <label for="fm">Message</label>
+    <textarea id="fm" name="message" rows="4" required></textarea>
+    <div class="row">
+      <button class="btn ig" type="button" id="sendIg">Send to Instagram 📸</button>
+      <button class="btn" type="button" id="sendWa">WhatsApp 💬</button>
+      <button class="pill" type="button" id="fbc">Close</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
