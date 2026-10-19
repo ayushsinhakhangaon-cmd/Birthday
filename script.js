@@ -1,7 +1,6 @@
 "use strict";
 const C = window.CONFIG;
 const $ = (s, r = document) => r.querySelector(s);
-<<<<<<< HEAD
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const photos = C.photos.slice();
@@ -21,24 +20,12 @@ function dotTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-=======
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const photos = C.photos.slice();
-let wishI = 0, cur = 0, typing = null;
-
-document.title = `Happy Birthday ${C.name} ✨`;
-
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 /* ---------- Three.js 3D background ---------- */
 (function initScene() {
   const canvas = $("#bg");
   if (!window.THREE) return; // CDN fail ho to site phir bhi chalegi
-<<<<<<< HEAD
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return; }
-=======
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
@@ -47,25 +34,16 @@ document.title = `Happy Birthday ${C.name} ✨`;
   scene.add(new THREE.AmbientLight(0xffc8e6, 0.7));
   const l1 = new THREE.PointLight(0xff6fae, 2.2, 60); l1.position.set(8, 8, 10); scene.add(l1);
   const l2 = new THREE.PointLight(0xf3d28b, 1.6, 60); l2.position.set(-9, -6, 8); scene.add(l2);
-<<<<<<< HEAD
   const l3 = new THREE.PointLight(0xb98cff, 1.4, 60); l3.position.set(0, 10, 4); scene.add(l3);
 
   // Stars (soft glowing dots)
-=======
-
-  // Stars
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   const n = 1400, pos = new Float32Array(n * 3);
   for (let i = 0; i < n * 3; i++) pos[i] = (Math.random() - 0.5) * 120;
   const sg = new THREE.BufferGeometry();
   sg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-<<<<<<< HEAD
   const stars = new THREE.Points(sg, new THREE.PointsMaterial({
     color: 0xffd9ee, size: 0.5, map: dotTexture(), transparent: true, opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending
   }));
-=======
-  const stars = new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xffd9ee, size: 0.18, transparent: true, opacity: 0.85 }));
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   scene.add(stars);
 
   // 3D hearts
@@ -86,7 +64,6 @@ document.title = `Happy Birthday ${C.name} ✨`;
     scene.add(m); hearts.push(m);
   }
 
-<<<<<<< HEAD
   // Crystals
   const crystals = [];
   const cgeo = new THREE.IcosahedronGeometry(.6, 0);
@@ -107,8 +84,6 @@ document.title = `Happy Birthday ${C.name} ✨`;
     scene.add(r); rings.push(r);
   }
 
-=======
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   const mouse = { x: 0, y: 0 };
   addEventListener("pointermove", e => {
     mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5;
@@ -122,21 +97,14 @@ document.title = `Happy Birthday ${C.name} ✨`;
   let t = 0;
   (function loop() {
     requestAnimationFrame(loop);
-<<<<<<< HEAD
     if (document.hidden || window.__modal) return;
-=======
-    if (document.hidden) return;
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
     t += reduce ? 0 : 0.01;
     hearts.forEach(h => {
       h.rotation.y += h.userData.sp; h.rotation.x = Math.sin(t + h.userData.ph) * .3;
       h.position.y = h.userData.y + Math.sin(t + h.userData.ph) * .8;
     });
-<<<<<<< HEAD
     crystals.forEach(c => { c.rotation.x += c.userData.rx; c.rotation.y += c.userData.ry; });
     rings.forEach((r, i) => { r.rotation.z += .002 * (i + 1); r.rotation.x += .0012; });
-=======
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
     stars.rotation.y = t * .03;
     camera.position.x += (mouse.x * 4 - camera.position.x) * .04;
     camera.position.y += (-mouse.y * 3 - scrollY * .004 - camera.position.y) * .04;
@@ -145,11 +113,7 @@ document.title = `Happy Birthday ${C.name} ✨`;
   })();
 })();
 
-<<<<<<< HEAD
 /* ---------- Confetti + sparkle trail (2D) ---------- */
-=======
-/* ---------- Confetti (2D) ---------- */
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 const fx = $("#fx"), ctx = fx.getContext("2d");
 let bits = [], running = false;
 function fxSize() { fx.width = innerWidth; fx.height = innerHeight; }
@@ -179,7 +143,6 @@ function drawFx() {
 function bigCelebration() {
   for (let i = 0; i < 6; i++) setTimeout(() => confetti(innerWidth * (.1 + Math.random() * .8), innerHeight * (.2 + Math.random() * .3), 90), i * 250);
 }
-<<<<<<< HEAD
 let lastTrail = 0;
 document.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse" || reduce) return;
@@ -191,15 +154,10 @@ document.addEventListener("pointermove", e => {
 });
 
 /* ---------- 3D tilt + glass sheen + hero parallax ---------- */
-=======
-
-/* ---------- 3D tilt (works on dynamically added cards too) ---------- */
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 let tiltEl = null;
 function resetTilt() { if (tiltEl) { tiltEl.style.transform = ""; tiltEl = null; } }
 document.addEventListener("pointermove", e => {
   if (e.pointerType === "touch" || reduce) return;
-<<<<<<< HEAD
   const el = e.target.closest ? e.target.closest(".tilt") : null;
   if (el !== tiltEl) resetTilt();
   if (el) {
@@ -238,18 +196,6 @@ async function copyText(text) {
   } catch (e) { return false; }
 }
 
-=======
-  const el = e.target.closest(".tilt");
-  if (el !== tiltEl) resetTilt();
-  if (!el) return;
-  tiltEl = el;
-  const r = el.getBoundingClientRect();
-  const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
-  el.style.transform = `perspective(900px) rotateY(${px * 14}deg) rotateX(${-py * 14}deg) translateZ(10px)`;
-});
-document.addEventListener("pointerleave", resetTilt);
-
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 /* ---------- Gate ---------- */
 function setMusicLabel() {
   const p = $("#aud").paused;
@@ -267,11 +213,7 @@ function playIntro() {
   intro.classList.remove("fade"); intro.hidden = false;
   const end = () => {
     if (done) return; done = true; intro.classList.add("fade");
-<<<<<<< HEAD
     setTimeout(() => { intro.hidden = true; openCake(); }, 700);
-=======
-    setTimeout(() => { intro.hidden = true; $("#app").hidden = false; scrollTo(0, 0); bigCelebration(); }, 700);
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   };
   setTimeout(end, 4800); intro.onclick = end;
 }
@@ -295,7 +237,6 @@ $("#mus").addEventListener("click", () => {
   else a.pause();
 });
 
-<<<<<<< HEAD
 /* ---------- Hero + countdown (gate + hero dono jagah) ---------- */
 $("#hn").textContent = C.name;
 $("#tag").textContent = C.tagline;
@@ -311,25 +252,6 @@ function tick() {
   const pad = v => String(v).padStart(2, "0");
   const t = Math.floor(diff / 1000);
   setCd([pad(Math.floor(t / 86400)), pad(Math.floor(t % 86400 / 3600)), pad(Math.floor(t % 3600 / 60)), pad(t % 60)]);
-=======
-/* ---------- Hero + countdown ---------- */
-$("#hn").textContent = C.name;
-$("#tag").textContent = C.tagline;
-const target = new Date(C.date);
-function tick() {
-  const diff = target - new Date();
-  const pad = v => String(v).padStart(2, "0");
-  if (diff <= 0) {
-    ["d", "h", "m", "s"].forEach(id => $("#" + id).textContent = "00");
-    $("#cdmsg").textContent = "Aaj aapka din hai! 🎂";
-    return;
-  }
-  const t = Math.floor(diff / 1000);
-  $("#d").textContent = pad(Math.floor(t / 86400));
-  $("#h").textContent = pad(Math.floor(t % 86400 / 3600));
-  $("#m").textContent = pad(Math.floor(t % 3600 / 60));
-  $("#s").textContent = pad(t % 60);
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
   $("#cdmsg").textContent = "Jadoo shuru hone mein…";
 }
 tick(); setInterval(tick, 1000);
@@ -338,7 +260,6 @@ $("#party").addEventListener("click", e => {
   confetti(r.left + r.width / 2, r.top, 160); bigCelebration();
 });
 
-<<<<<<< HEAD
 /* =====================================================================
    DOLL CAKE POPUP (Three.js): doll cake + knife cut + 3D gold text
    ===================================================================== */
@@ -601,8 +522,6 @@ $("#enterBtn").addEventListener("click", () => {
   }, 600);
 });
 
-=======
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 /* ---------- Lightbox ---------- */
 const lb = $("#lb-view");
 function showLb() {
@@ -656,13 +575,6 @@ function renderAlbum() {
 }
 $("#fprev").addEventListener("click", () => { go(-1); autoplay(); });
 $("#fnext").addEventListener("click", () => { go(1); autoplay(); });
-<<<<<<< HEAD
-=======
-$("#add").addEventListener("change", e => {
-  [...e.target.files].forEach(f => photos.push({ src: URL.createObjectURL(f), cap: `New memory ${photos.length + 1}` }));
-  e.target.value = ""; renderAlbum(); cur = photos.length - 1; layoutFlow();
-});
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 Promise.all(photos.map(loadImg)).then(r => { photos.splice(0, photos.length, ...r.filter(Boolean)); renderAlbum(); autoplay(); });
 
 /* ---------- Letter (typewriter) ---------- */
@@ -676,11 +588,7 @@ $("#lb").addEventListener("click", () => {
   }, 1100);
 });
 
-<<<<<<< HEAD
 /* ---------- Candle cake (section) ---------- */
-=======
-/* ---------- Cake ---------- */
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 const candles = $(".candles"), cakeBox = $(".cakebox");
 candles.style.pointerEvents = "auto";
 cakeBox.setAttribute("aria-hidden", "false");
@@ -714,22 +622,8 @@ $("#wb").addEventListener("click", () => {
   confetti(innerWidth / 2, innerHeight * .6, 70);
 });
 
-<<<<<<< HEAD
 /* ---------- 3D photo cube ---------- */
 $$(".cube .f").forEach((f, i) => { if (C.cube[i]) f.style.setProperty("--img", `url("${C.cube[i]}")`); });
-=======
-/* ---------- Feedback ---------- */
-$("#fbo").addEventListener("click", () => $("#fb").showModal());
-$("#fbc").addEventListener("click", () => $("#fb").close());
-
-/* ---------- 3D photo cube ---------- */
-const faces = [...document.querySelectorAll(".cube .f")];
-faces.forEach((f, i) => { if (C.cube[i]) f.style.setProperty("--img", `url("${C.cube[i]}")`); });
-$("#cubeAdd").addEventListener("change", e => {
-  [...e.target.files].slice(0, 6).forEach((file, i) => faces[i].style.setProperty("--img", `url("${URL.createObjectURL(file)}")`));
-  e.target.value = "";
-});
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
 
 /* ---------- Birthday calendar ---------- */
 (function () {
@@ -747,7 +641,6 @@ $("#cubeAdd").addEventListener("change", e => {
     } else add("span", "day", d);
   }
   $("#calImg").src = C.calendarPhoto;
-<<<<<<< HEAD
 })();
 
 /* ---------- Review: Instagram + WhatsApp ---------- */
@@ -767,7 +660,7 @@ $("#sendIg").addEventListener("click", async () => {
   const text = `💌 Birthday Website Review\n👤 Name: ${r.name}\n⭐ Rating: ${r.stars} (${rating}/5)\n📝 Message: ${r.msg}`;
   const ok = await copyText(text);
   toast(ok ? "Review copy ho gaya ✅ Instagram DM mein paste karke send kar do" : "Instagram khul raha hai: apna review DM mein likh dena");
-   const url = `https://www.instagram.com/${C.instagram}/`;
+  const url = `https://ig.me/m/${C.instagram}`;
   if (!window.open(url, "_blank", "noopener")) location.href = url;
   $("#fb").close(); $("#wf").reset(); rating = 5; paintStars();
 });
@@ -786,16 +679,3 @@ if ("IntersectionObserver" in window) {
   }), { threshold: .12 });
   $$("#app section").forEach(s => { s.classList.add("rv"); io.observe(s); });
 }
-=======
-  $("#calAdd").addEventListener("change", e => { if (e.target.files[0]) $("#calImg").src = URL.createObjectURL(e.target.files[0]); e.target.value = ""; });
-})();
-
-/* ---------- Feedback -> WhatsApp ---------- */
-$("#wf").addEventListener("submit", e => {
-  e.preventDefault();
-  const name = $("#fn").value.trim() || "Anonymous", msg = $("#fm").value.trim();
-  const text = `💌 *Birthday Website Feedback*\n👤 Name: ${name}\n📝 Message: ${msg}`;
-  window.open(`https://wa.me/${String(C.whatsapp).replace(/\D/g, "")}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
-  $("#fb").close(); e.target.reset();
-});
->>>>>>> 9bf1680d82bde9dc0a7dabf5094f7bb3825970aa
